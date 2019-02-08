@@ -14,7 +14,6 @@ const withErrorHandler = (WrappedComponent, axios) => {
                 return req;
             })
             this.resInterceptor = axios.interceptors.response.use(res => res, error => {
-                console.log(error);
                 this.setState({ error: error });
             })
         }
@@ -22,7 +21,6 @@ const withErrorHandler = (WrappedComponent, axios) => {
         /* prevent memory leak because componentWillMount will be called multiple
         especially if more than one container wrapped by withErrorHandler */
         componentWillUnmount() {
-            console.log('Will Unmount', this.reqInterceptor, this.resInterceptor);
             axios.interceptors.request.eject(this.reqInterceptor);
             axios.interceptors.response.eject(this.resInterceptor);
         }
